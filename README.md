@@ -4,7 +4,7 @@ Aplicativo de uma loja virtual desenvolvido em Flutter.
 
 ## Sobre o App
 
-Gym App é um aplicativo para gerenciar uma loja virtual, o aplicativo conta cm opção de compra, gerenciamento de produtos e gerenciamento de pedidos. O aplicativo foi desenvolvido utilizando Flutter nas UIs, Dart no BackEnd e Provider para Gerenciamento de Estado.
+Shop é um aplicativo para gerenciar uma loja virtual, o aplicativo conta cm opção de compra, gerenciamento de produtos e gerenciamento de pedidos. O aplicativo foi desenvolvido utilizando Flutter nas UIs, Dart no BackEnd e Provider para Gerenciamento de Estado.
 
 ![Captura de tela 2024-03-18 120554](https://github.com/Olivaar/shop/assets/72718272/e3ccfd10-38ee-4663-8b7a-51dafb264e40)
 
