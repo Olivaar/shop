@@ -11,6 +11,4 @@ class HttpException implements Exception {
   String toString() {
     return 'HttpException{message: $message}';
   }
-
-
 }
