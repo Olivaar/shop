@@ -8,45 +8,56 @@ import '../../model/product_list.dart';
 import '../widgets/product_grid.dart';
 
 enum FilterOptions {
-  Favorite,
-  All,
+  favorite,
+  all,
 }
 
 class ProductOverviewPage extends StatefulWidget {
-  ProductOverviewPage({super.key});
+  const ProductOverviewPage({super.key});
 
   @override
   State<ProductOverviewPage> createState() => _ProductOverviewPageState();
 }
 
 class _ProductOverviewPageState extends State<ProductOverviewPage> {
-  bool _shoFavoriteOnly = false;
+  bool _showFavoriteOnly = false;
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<ProductList>(context, listen: false).loadProducts().then((value) {
+      setState(() {
+        _isLoading = false;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<ProductList>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).primaryColor,
         title: const Text('Minha Loja'),
         actions: [
           PopupMenuButton(
+            icon: const Icon(Icons.filter_list_outlined),
             itemBuilder: (_) => [
               const PopupMenuItem(
-                value: FilterOptions.Favorite,
+                value: FilterOptions.favorite,
                 child: Text('Somente Favoritos'),
               ),
               const PopupMenuItem(
-                value: FilterOptions.All,
+                value: FilterOptions.all,
                 child: Text('Todos'),
               ),
             ],
             onSelected: (FilterOptions selectedValue) {
               setState(() {
-                if (selectedValue == FilterOptions.Favorite) {
-                  _shoFavoriteOnly = true;
+                if (selectedValue == FilterOptions.favorite) {
+                  _showFavoriteOnly = true;
                 } else {
-                  _shoFavoriteOnly = false;
+                  _showFavoriteOnly = false;
                 }
               });
             },
@@ -65,8 +76,10 @@ class _ProductOverviewPageState extends State<ProductOverviewPage> {
           ),
         ],
       ),
-      body: ProductGrid(_shoFavoriteOnly),
-      drawer: AppDrawer(),
+      body: _isLoading ? const Center(
+        child: CircularProgressIndicator(),
+      ) : ProductGrid(_showFavoriteOnly),
+      drawer: const AppDrawer(),
     );
   }
 }
