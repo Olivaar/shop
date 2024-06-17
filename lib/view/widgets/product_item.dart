@@ -59,7 +59,6 @@ class ProductItem extends StatelessWidget {
                         listen: false,
                       ).removeProduct(product);
                     } on HttpException catch(error){
-                      print(error.toString());
                       msg.showSnackBar(
                         SnackBar(content: Text(error.toString()),)
                       );
@@ -69,7 +68,7 @@ class ProductItem extends StatelessWidget {
                 });
               },
               icon: const Icon(Icons.delete),
-              color: Theme.of(context).errorColor,
+              color: Colors.red,
             ),
           ],
         ),

@@ -69,7 +69,7 @@ class _AuthFormState extends State<AuthForm> {
 
     try {
       if (_isLogin()) {
-        await auth.sign(
+        await auth.login(
           _authData['email']!,
           _authData['password']!,
         );
