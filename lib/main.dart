@@ -5,6 +5,7 @@ import 'package:shop/model/cart.dart';
 import 'package:shop/model/order_list.dart';
 import 'package:shop/model/product_list.dart';
 import 'package:shop/utils/app_routs.dart';
+import 'package:shop/utils/custom_route.dart';
 import 'package:shop/view/pages/auth_or_home_page.dart';
 import 'package:shop/view/pages/cart_page.dart';
 import 'package:shop/view/pages/orders_page.dart';
@@ -56,6 +57,12 @@ class MyApp extends StatelessWidget {
           primaryColor: Colors.deepOrange,
           fontFamily: 'Lato',
           useMaterial3: true,
+          pageTransitionsTheme: PageTransitionsTheme(
+            builders: {
+              TargetPlatform.android: CustomPageTransitionsBuilder(),
+              TargetPlatform.iOS: CustomPageTransitionsBuilder(),
+            },
+          ),
         ),
         // home: ProductOverviewPage(),
         routes: {

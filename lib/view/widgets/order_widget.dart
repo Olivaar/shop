@@ -19,55 +19,61 @@ class _OrderWidgetState extends State<OrderWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Column(
-        children: [
-          ListTile(
-            title: ListTile(
-              title: Text('R\$ ${widget.order.total.toStringAsFixed(2)}'),
-              subtitle: Text(
-                DateFormat('dd/MM/yyyy hh:mm').format(widget.order.date),
-              ),
-              trailing: IconButton(
-                onPressed: () {
-                  setState(() {
-                    _expanded = !_expanded;
-                  });
-                },
-                icon: Icon( !_expanded ? Icons.expand_more : Icons.expand_less,
+    final itemsHeight = (widget.order.products.length * 25.0) + 10;
+
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 300),
+      height: _expanded ? itemsHeight + 100 : 100,
+      child: Card(
+        child: Column(
+          children: [
+            ListTile(
+              title: ListTile(
+                title: Text('R\$ ${widget.order.total.toStringAsFixed(2)}'),
+                subtitle: Text(
+                  DateFormat('dd/MM/yyyy hh:mm').format(widget.order.date),
+                ),
+                trailing: IconButton(
+                  onPressed: () {
+                    setState(() {
+                      _expanded = !_expanded;
+                    });
+                  },
+                  icon: Icon( !_expanded ? Icons.expand_more : Icons.expand_less,
+                  ),
                 ),
               ),
             ),
-          ),
-          if (_expanded)
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 4,),
-              height: (widget.order.products.length * 25.0) + 10,
-              child: ListView(
-                children: widget.order.products.map((product) {
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        product.name,
-                        style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 300),
+                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 4,),
+                height: _expanded ? itemsHeight : 0,
+                child: ListView(
+                  children: widget.order.products.map((product) {
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          product.name,
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                      Text(
-                        '${product.quantity}x R\$ ${product.price}',
-                        style: const TextStyle(
-                          fontSize: 18,
-                          color: Colors.grey,
+                        Text(
+                          '${product.quantity}x R\$ ${product.price}',
+                          style: const TextStyle(
+                            fontSize: 18,
+                            color: Colors.grey,
+                          ),
                         ),
-                      ),
-                    ],
-                  );
-                }).toList(),
+                      ],
+                    );
+                  }).toList(),
+                ),
               ),
-            ),
-        ],
+          ],
+        ),
       ),
     );
   }
